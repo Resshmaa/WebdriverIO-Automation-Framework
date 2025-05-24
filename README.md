@@ -34,7 +34,7 @@ Welcome to this **Behavior-Driven Development (BDD)** test automation framework 
 WDIO-CucumberJS/
 │
 ├── .vscode/            → VS Code launch & debug settings  
-├── CommonUtils/        → Helper utilities (browser, date, email, logs)  
+├── CommonUtils/        → Helper utilities (browser, element, date, fetch, email, logs, scenario context)  
 ├── reports/            → JSON and HTML reports  
 ├── SampleProject/  
 │   ├── Configs/        → Test data and credentials  
