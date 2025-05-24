@@ -28,7 +28,7 @@ Welcome to this **Behavior-Driven Development (BDD)** test automation framework 
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```
 WDIO-CucumberJS/
@@ -62,7 +62,7 @@ It's clean, modular, and easy to maintain! Each folder has a specific responsibi
 
 ---
 
-## Important Packages Used
+# Important Packages Used
 
 * `@wdio/cli` & `@wdio/cucumber-framework` – Core WebdriverIO + Cucumber setup
 * `wdio-cucumberjs-json-reporter` – Generates JSON report data
@@ -75,7 +75,7 @@ It's clean, modular, and easy to maintain! Each folder has a specific responsibi
 
 ---
 
-## Reporting Workflow
+# Reporting Workflow
 
 1. JSON reports are saved in `reports/json/tmp/`.
 2. After test execution, a post-hook in `wdio.conf.js` triggers report conversion.
@@ -90,3 +90,10 @@ These reports show passed/failed steps, screenshots, and are great to share with
 * This framework is a great base to scale UI + API testing needs.
 * OTP-based login is fully automated — no manual input required.
 * Easy to maintain, extend, and integrate with CI/CD pipelines.
+
+---
+
+# Note:
+* This framework uses Gmail API credentials to fetch OTP during login automation.
+* Rename credentials.sample.json to credentials.json
+* Fill in the client ID, client secret, refresh token, and other details from Google Cloud Console.
