@@ -30,21 +30,23 @@ Welcome to this **Behavior-Driven Development (BDD)** test automation framework 
 
 ## Project Structure
 
+```
 WDIO-CucumberJS/
 │
-├── .vscode/                  → VS Code launch & debug settings
-├── CommonUtils/              → Helper utilities (browser, date, email, logs)
-├── reports/                  → JSON and HTML reports
-├── SampleProject/
-│   ├── Configs/              → Test data and credentials
-│   ├── Features/             → Cucumber feature files (Gherkin)
-│   ├── PageObjects/          → UI elements and page actions
-│   ├── StepDefs/             → Step definitions (glue between feature and code)
-│   └── TestData/             → Login and validation data
-├── tempDownloads/            → Temporary downloads
-├── package.json              → NPM dependencies
-├── .gitignore                → Git ignore rules
-└── wdio.conf.js              → WebdriverIO config with hooks and reporting
+├── .vscode/            → VS Code launch & debug settings  
+├── CommonUtils/        → Helper utilities (browser, date, email, logs)  
+├── reports/            → JSON and HTML reports  
+├── SampleProject/  
+│   ├── Configs/        → Test data and credentials  
+│   ├── Features/       → Cucumber feature files (Gherkin)  
+│   ├── PageObjects/    → UI elements and page actions  
+│   ├── StepDefs/       → Step definitions (glue between feature and code)  
+│   └── TestData/       → Login and validation data  
+├── tempDownloads/      → Temporary downloads  
+├── package.json        → NPM dependencies  
+├── .gitignore          → Git ignore rules  
+└── wdio.conf.js        → WebdriverIO config with hooks and reporting  
+```
 
 **Why this structure?**
 It's clean, modular, and easy to maintain! Each folder has a specific responsibility to keep the code DRY (Don’t Repeat Yourself) and the tests organized.
