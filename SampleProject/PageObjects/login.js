@@ -27,8 +27,16 @@ class Login {
         return $$('//input[contains(@name,"otp_")]')
     }
 
-    get btnCloseRandomOfferAlert() {
+    get iframeOfferAlert() {
+        return $$('//iframe[contains(@id,"moe-onsite-campaign-")]')
+    }
+
+    get btnCloseExploreOfferAlert() {
         return $$('//div[@data-id="CONTAINER"]//button[@data-id="CLOSE"]')
+    }
+
+    get btnCloseRandomOfferAlert() {
+        return $$('//div[@data-id="CONTAINER"]/following-sibling::button[@data-id="CLOSE"]')
     }
 
     get dlgNotificationsAlert() {
@@ -140,28 +148,13 @@ class Login {
         console.log("OTP entered successfully");
     }
 
-    async handleRandomOfferAlerts() {
-        try {
-            const closeButtons = await this.btnCloseRandomOfferAlert();
-            console.log(`Found ${closeButtons.length} random offer alerts`);
-
-            for (const btn of closeButtons) {
-                if (await ElementUtil.isDisplayed(btn)) {
-                    await ElementUtil.click(btn, "close button")
-                    await BrowserUtil.wait(3)
-                }
-            }
-        }
-        catch (err) {
-            console.warn("Random offer alerts not found or error occurred, continuing...");
-        }
-    }
 
     async handleNotificationsAlert() {
         try {
-            const notificationsBanner = await this.dlgNotificationsAlert();
+            const notificationsBanner = await this.dlgNotificationsAlert;
 
-            if (await ElementUtil.isDisplayed(notificationsBanner)) {
+            let isNotificationBannerPresent = await ElementUtil.isDisplayed(notificationsBanner);
+            if (isNotificationBannerPresent) {
                 const dontAllowBtn = await this.btnDontAllowNotifications();
                 if (await ElementUtil.isDisplayed(dontAllowBtn)) {
                     console.log("Notifications banner displayed - clicking Don't Allow");
@@ -171,14 +164,15 @@ class Login {
         }
 
         catch (err) {
-            console.warn("Notifications alert not found or error occurred, continuing...")
+            console.warn("Notifications alert not found, continuing...")
         }
     }
 
-    async handleRandomModals() {
-        await this.handleRandomOfferAlerts();
-        await this.handleNotificationsAlert();
-    }
+    // async handleRandomModals() {
+    //     await BrowserUtil.wait(10);
+    //     await this.handleAllOfferAlerts();
+    //     await this.handleNotificationsAlert();
+    // }
 
     async navigateToMyProfile() {
         await ElementUtil.click(this.menuMyAccount, "My Account menu");

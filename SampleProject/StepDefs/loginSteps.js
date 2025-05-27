@@ -28,10 +28,8 @@ Given(/^the user is on the Titan Eye Plus homepage$/, async() => {
 
 Given(/^the user enters their registered mobile number$/, async() => {
 	const login = new Login;
-        await login.handleRandomModals();
     await login.clickSignIn();
     await login.verifySignInModal();
-        await login.handleRandomModals();
     await login.enterMobileNumber();
     await login.clickSubmit();
 });
@@ -43,13 +41,9 @@ When(/^the user retrieves the OTP from their Gmail account and submits it$/, asy
 
     await BrowserUtil.wait(5);
 
-    await login.handleRandomModals();
-
     await gmailAPI.getAccessToken();
     await gmailAPI.getMailList();
     await gmailAPI.getLatestEmail();
-
-    await login.handleRandomModals();
 
     await login.enterOTP();
 });
@@ -57,13 +51,13 @@ When(/^the user retrieves the OTP from their Gmail account and submits it$/, asy
 
 Then(/^the user should be logged in successfully$/, async() => {
 	const login = new Login;
-        await login.handleRandomModals();
     expect(login.menuMyAccount).toExist();
 });
 
 
 Then(/^the profile details of the user are verified$/, async() => {
 	const login = new Login;
+    await login.handleNotificationsAlert();
     await login.navigateToMyProfile();
 
     let firstNameInMyProfile = await ElementUtil.getValue(login.lblFirstName);

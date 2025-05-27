@@ -464,13 +464,13 @@ class BrowserUtil {
 
 
     /**
-     * Switch to a frame by its id, index, or element.
-     * @param {number | object | null} id - The frame identifier (index, element, or null for top-level).
-     * @returns {Promise<void>}
+     * Switch to a specific frame or back to the top-level context.
+     * @param {string | object | Function | null} context - Frame URL, element, function, or null for top-level.
+     * @returns {Promise<string>} The current active context ID.
      */
-    static async switchToFrame(id) {
-        Log.info(`Switching to frame: ${id === null ? 'top-level frame' : JSON.stringify(id)}`);
-        await browser.switchToFrame(id);
+    static async switchToFrame(context) {
+        console.log(`Switching to: ${context === null ? 'top-level frame' : typeof context}`);
+        return await browser.switchFrame(context);
     }
 
 

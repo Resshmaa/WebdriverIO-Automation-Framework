@@ -1,0 +1,14 @@
+# Node modules and logs
+node_modules/
+logs/
+*.log
+
+# VS Code config
+.vscode/
+
+# Reports and temp files
+reports/
+tempDownloads/
+
+# Config secrets
+SampleProject/Configs/credentials.json
