@@ -15,6 +15,7 @@ const BrowserUtil = require('./CommonUtils/BrowserUtil');
 const currentTime = DateUtil.getDateISOString().replace(/:/g, "-");
 const jsonTmpDirectory = './reports/json/tmp/';
 const junitReportDirectory = './reports/junit/';
+const { attach } = require('@wdio/cucumber-framework');
 
 
 // For receiving --log parameters.
@@ -191,12 +192,21 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: [//for cucumberjson
+    // reporters: [//for cucumberjson
+    //     ['cucumberjs-json', {
+    //         jsonFolder: jsonTmpDirectory,
+    //         language: 'en',
+    //     }],
+    // ],
+
+    reporters: [
+        'spec',
         ['cucumberjs-json', {
             jsonFolder: jsonTmpDirectory,
             language: 'en',
         }],
     ],
+
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -359,10 +369,11 @@ exports.config = {
     // afterStep: function (step, scenario, result, context) {
     // },
 
-    afterStep: async function (step, scenario, result, context) {
-        //take and attached screenshots in cucumber json
-        if (!result.passed) {
-            cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
+
+    afterStep: async function (step, scenario, { error, duration, passed }) {
+        if (!passed) {
+            const screenshot = await browser.takeScreenshot();
+            await attach(screenshot, 'image/png');
         }
     },
 
