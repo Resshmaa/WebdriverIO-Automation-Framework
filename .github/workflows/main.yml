@@ -1,0 +1,65 @@
+name: WebDriverIO Portfolio Tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  webdriverio:
+    runs-on: ubuntu-20.04
+    env:
+      CI: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          npm install --unsafe-perm --force
+          npm install chromedriver --force
+
+      - name: Create report folders
+        run: |
+          mkdir -p ./reports/html ./reports/json/tmp ./reports/junit ./data
+
+      - name: Run WebDriverIO tests
+        run: |
+          npx wdio wdio.conf.js --headless --log=ERROR
+        continue-on-error: true
+
+      - name: Zip HTML report
+        run: |
+          zip -r "./PortfolioTestReport.zip" ./reports/html
+
+      - name: Upload Test Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WebdriverIO Test Report
+          path: "./PortfolioTestReport.zip"
+
+      - name: Email Test Report
+        uses: dawidd6/action-send-mail@v3.7.1
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: reshmaarivu2900@gmail.com                    
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}  
+          subject: "WebDriverIO Test Report"
+          to: reshmaarivu2900@gmail.com                          
+          from: "WebdriverIO Web Automation"
+          attachments: "./PortfolioTestReport.zip"
+          body: |
+            Hello,
+
+            Please find attached my latest WebDriverIO Portfolio Test Report.
+
+            Regards,
+            ${{ github.actor }}
