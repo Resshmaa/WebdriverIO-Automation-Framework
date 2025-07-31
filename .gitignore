@@ -11,4 +11,4 @@ reports/
 tempDownloads/
 
 # Config secrets
-SampleProject/Configs/credentials.json
+# SampleProject/Configs/credentials.json
